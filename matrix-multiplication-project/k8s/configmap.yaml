@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: matrix-multiplication-config
+data:
+  hadoop.master: "hadoop-master:9000"
+  input.path: "/hadoop/input"
+  output.path: "/hadoop/output"
+  matrix.size: "500"  # Matrix size
+  other.config: "value"  # Other configuration items can be added as needed

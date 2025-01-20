@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix-multiplication
+spec:
+  replicas: 2  # Set the number of replicas to 2
+  selector:
+    matchLabels:
+      app: matrix-multiplication
+  template:
+    metadata:
+      labels:
+        app: matrix-multiplication
+    spec:
+      containers:
+      - name: matrix-multiplication
+        image: docker.io/zhangjiaman/matrix-multiplication:latest  # Ensure the image name and tag are correct
+        imagePullPolicy: IfNotPresent  # Add imagePullPolicy field
+        envFrom:
+        - configMapRef:
+            name: matrix-multiplication-config
+        volumeMounts:
+        - name: hadoop-config
+          mountPath: /etc/hadoop/conf
+      volumes:
+      - name: hadoop-config
+        configMap:
+          name: matrix-multiplication-config
